@@ -1,4 +1,4 @@
-module sop (
+module control_unit (
     input [31:0] data_in,
     output reg [3:0] sel_bit,
     output reg [1:0] sel_bit_mux,
