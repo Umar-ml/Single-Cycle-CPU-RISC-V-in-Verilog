@@ -5,7 +5,9 @@ module datapath(
 	input [31:0] reg_input,
 	output reg [31:0] data_out1, data_out2,imm_out,
 	output reg [3:0] sel_bit,
-	output wenb, rs2_imm_sel
+	output wenb, rs2_imm_sel, jal_enb, load_enb, branch_enb, auipc_wenb, lui_enb, branch_taken,
+	output reg [2:0] sel_bit_mux
+	output reg [31:0] alu_out
 );
 	wire [31:0] imm;
     	wire priority_out;
@@ -47,7 +49,20 @@ module datapath(
 		.data_in(instruction),
 		.sel_bit(sel_bit),
 		.wenb(wenb),
-		.rs2_imm_sel(rs2_imm_sel)
-		
-		
-	)
+		.rs2_imm_sel(rs2_imm_sel),
+		.jal_enb(jal_enb),
+		.load_enb(load_enb),
+		.branch_enb(branch_enb),
+		.auipc_wenb(auipc_wenb),
+		.sel_bit_mux(sel_bit_mux),
+		.lui_enb(lui_enb)
+	);
+	
+	alu ALU(
+		.dataA(data_out1),
+		.dataB(data_out2),
+		.out(alu_out),
+		.selector(sel_bit),
+		.branch_taken(branch_taken)
+	);
+	
