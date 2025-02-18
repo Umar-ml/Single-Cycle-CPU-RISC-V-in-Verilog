@@ -22,12 +22,12 @@ module datapath(
     		.pc_next(pc_next),
     		.pc_write(pc_write),
     		.pc_out(pc_out)	
-    	),
+    	);
     	
     	instruction_memory imem(
     		.addr(pc_out),
     		.instruction(instruction)
-    	),
+    	);
 	
 	register_file reg_file(
 		.data_in(instruction),
