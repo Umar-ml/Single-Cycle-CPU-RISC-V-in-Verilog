@@ -9,7 +9,7 @@ module alu(
 
         case(selector)
             4'b0000: out = dataA + dataB; // ADD
-            4'b0001: out = dataA << dataB[5:0]; // SLL
+            4'b0001: out = dataA << dataB[4:0]; // SLL
             4'b0010: out = (dataA < dataB) ? 32'b1 : 32'b0; // SLT
             4'b0011: out = ($unsigned(dataA) < $unsigned(dataB)) ? 32'b1 : 32'b0; // SLTU
             4'b0100: out = dataA ^ dataB; // XOR
