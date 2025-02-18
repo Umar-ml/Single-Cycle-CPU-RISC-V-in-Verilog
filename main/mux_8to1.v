@@ -1,4 +1,4 @@
-module mux_5to1(
+module mux_8to1(
     input wire [31:0] alu_result, load_result, pc_plus_4, pc_plus_imm, imm_for_b_type, // Data inputs
     input wire [2:0] sel, // Select signal from encoder
     output reg [31:0] out // MUX output

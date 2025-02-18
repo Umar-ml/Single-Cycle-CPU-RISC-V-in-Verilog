@@ -1,4 +1,4 @@
-module priority_encoder_5to3(
+module priority_encoder_8to3(
     input wire [4:0] in,  // 5-bit input
     output reg [2:0] out  // 3-bit select output
 );

@@ -7,13 +7,16 @@ module datapath(
 	output reg [3:0] sel_bit,
 	output wenb, rs2_imm_sel, jal_enb, load_enb, branch_enb, auipc_wenb, lui_enb, branch_taken,
 	output reg [2:0] sel_bit_mux
-	output reg [31:0] alu_out
+	input inp,
+	output reg [31:0] alu_out,
+	output reg [2:0] input_to_mux
 );
 	wire [31:0] imm;
     	wire priority_out;
     	wire mux_select;
     	wire [31:0] pc_out;
     	wire [31:0] pc_next;
+	assign   inp = {~(load_enb | jal_enb),load_enb, jal_enb, lui_enb, auipc_wenb};
     	
     	
     	program_counter pc(
@@ -81,4 +84,16 @@ module datapath(
 		.selector(sel_bit),
 		.branch_taken(branch_taken)
 	);
+	
+	priority_encoder_8to3 encoderr(
+		.in(inp),
+		.out(input_to_mux)
+		
+	);
+	
+	mux_8to1 mux(
+		.sel(input_to_mux),
+		.out(instruction)
+		
+	)
 	
