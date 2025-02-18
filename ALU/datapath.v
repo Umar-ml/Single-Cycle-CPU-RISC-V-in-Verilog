@@ -1,5 +1,5 @@
 module datapath(
-	input clk, enable, reset, select,
+	input clk, enable, reset, select, pc_write
 	input [31:0] instruction,
 	input [4:0] rs1,rs2,rdi,
 	input [31:0] reg_input,
@@ -12,6 +12,22 @@ module datapath(
 	wire [31:0] imm;
     	wire priority_out;
     	wire mux_select;
+    	wire [31:0] pc_out;
+    	wire [31:0] pc_next;
+    	
+    	
+    	program_counter pc(
+    		.clk(clk),
+    		.rst(reset),
+    		.pc_next(pc_next),
+    		.pc_write(pc_write),
+    		.pc_out(pc_out)	
+    	),
+    	
+    	instruction_memory imem(
+    		.addr(pc_out),
+    		.instruction(instruction)
+    	),
 	
 	register_file reg_file(
 		.data_in(instruction),
