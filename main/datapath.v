@@ -9,7 +9,7 @@ module datapath(
 	output reg [2:0] sel_bit_mux
 	input inp,
 	output reg [31:0] alu_out,
-	output reg [2:0] input_to_mux
+	output reg [2:0] input_to_mux, output_data_forstore
 );
 	wire [31:0] imm;
     	wire priority_out;
@@ -75,6 +75,12 @@ module datapath(
 		.auipc_wenb(auipc_wenb),
 		.sel_bit_mux(sel_bit_mux),
 		.lui_enb(lui_enb)
+	);
+	
+	mux_rs2 mux2(
+		.rs2(data_out2),
+		.sel_bit(sel_bit),
+		.output_data_forstore(output_data_forstore)
 	);
 	
 	alu ALU(
