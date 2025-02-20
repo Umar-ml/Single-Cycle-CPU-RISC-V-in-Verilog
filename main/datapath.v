@@ -101,8 +101,8 @@ module datapath(
 		.lw(lw),
 		.lbu(lbu),
 		.lhu(lhu),
-		.address(alu_out),  // Address from ALU result
-		.write_data(output_data_forstore), // Data to store
+		.address(alu_out),  
+		.write_data(output_data_forstore), 
 		.read_data(read_data) // Data read from memory
 	);
 	
