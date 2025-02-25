@@ -149,7 +149,13 @@ module pc_tb;
   );
   
   priority_encoder_8to3 pr_tomux(
-    .in(),
+    .alu_result(alu_out),
+    .load_enable(load_enb),
+    .jal_enable(jal_enb),
+    .enable_for_auipc(auipc_wenb),
+    .lui_enable(lui_enb),
+    .in(i),
+    .
     .out(out_for)
   );
   
