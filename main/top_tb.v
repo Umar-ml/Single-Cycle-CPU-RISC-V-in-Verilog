@@ -4,7 +4,7 @@ module pc_tb;
   wire [4:0] rs1, rs2, rdi;
   wire [31:0] pc, alu_out, out_1;
   wire [31:0] instruction;
-  wire [31:0] immm, dataA, dataB;
+  wire [31:0] immm, dataA, dataB, outdata_store;
   wire [3:0] sel_bit;
   wire [1:0] sel_bit_mux;
   wire addr, sub, sllr, sltr, sltur, xorr, srlr, srar, orr, andr;
@@ -123,6 +123,28 @@ module pc_tb;
     .lui_enb(lui_enb),
     .in_to_pr(in_to_pr)
   );
+  
+  mux_rs2 muxx(
+    .rs2(dataB),
+    .sel_bit(sel_bit),
+    .output_data_forstore(outdata_store)
+  );
+  
+  data_memory dmeme(
+    .clk(clk),
+    .load_enb(load_enb),
+    .sb(sb),
+    .sh(sh),
+    .sw(sw),
+    .lb(lb),
+    .lh(lh),
+    .lw(lw),
+    .lbu(lbu),
+    .lhu(lhu),
+    .address(alu_out),
+    .write_data(dataB),
+    .read_data()
+  )
   
   always #5 clk = ~clk;
   
