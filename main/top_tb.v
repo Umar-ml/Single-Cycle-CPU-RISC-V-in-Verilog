@@ -4,9 +4,11 @@ module pc_tb;
   wire [4:0] rs1, rs2, rdi;
   wire [31:0] pc, alu_out, out_1;
   wire [31:0] instruction;
-  wire [31:0] immm, dataA, dataB, outdata_store;
+  wire [31:0] immm, dataA, dataB, outdata_store, read_data, outputt;
   wire [3:0] sel_bit;
   wire [1:0] sel_bit_mux;
+  wire [7:0] in;
+  wire [2:0] out_for;
   wire addr, sub, sllr, sltr, sltur, xorr, srlr, srar, orr, andr;
   wire addi, slli, slti, sltui, xori, srli, srai, ori, andi;
   wire sw, sh, sb, lb, lh, lw, lbu, lhu;
@@ -143,8 +145,18 @@ module pc_tb;
     .lhu(lhu),
     .address(alu_out),
     .write_data(dataB),
-    .read_data()
-  )
+    .read_data(read_data)
+  );
+  
+  priority_encoder_8to3 pr_tomux(
+    .in(),
+    .out(out_for)
+  );
+  
+  mux_8to1 mux8(
+    .sel(out_for),
+    .out(outputt)
+  );
   
   always #5 clk = ~clk;
   
