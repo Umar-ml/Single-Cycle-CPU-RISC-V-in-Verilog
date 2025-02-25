@@ -1,7 +1,7 @@
 module control_unit (
     input [31:0] data_in,
-    output reg [3:0] sel_bit,
-    output reg [1:0] sel_bit_mux,
+    output wire [3:0] sel_bit,
+    output wire [1:0] sel_bit_mux,
     output addr, sub, sllr, sltr, sltur, xorr, srlr, srar, orr, andr,
     output addi, slli, slti, sltui, xori, srli, srai, ori, andi,
     output sw, sh, sb, lb, lh, lw, lbu, lhu,

@@ -2,9 +2,10 @@ module register_file (
     input clk, reset, enable,
     input [31:0] data_in,
     input [4:0] rs1, rs2, rd_select,
-    output reg [31:0] data_out1, data_out2
+    output [31:0] data_out1, data_out2
 );
     reg [31:0] registers [31:0]; 
+    wire [31:0] data_out1, data_out2;
     always @(*) begin
         data_out1 = (rs1 == 0) ? 32'b0 : registers[rs1];
         data_out2 = (rs2 == 0) ? 32'b0 : registers[rs2];

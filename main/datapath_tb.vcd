@@ -1,0 +1,519 @@
+$date
+	Mon Feb 24 18:01:38 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module datapath_tb $end
+$var wire 32 ! alu_result [31:0] $end
+$var wire 32 " imm_for_b_type [31:0] $end
+$var wire 1 # inp $end
+$var wire 1 $ lb $end
+$var wire 1 % lbu $end
+$var wire 1 & lh $end
+$var wire 1 ' lhu $end
+$var wire 1 ( lw $end
+$var wire 32 ) pc_plus_4 [31:0] $end
+$var wire 32 * pc_plus_imm [31:0] $end
+$var wire 1 + sb $end
+$var wire 1 , sh $end
+$var wire 1 - sw $end
+$var wire 1 . wenb $end
+$var wire 3 / sel_bit_mux [2:0] $end
+$var wire 4 0 sel_bit [3:0] $end
+$var wire 1 1 rs2_imm_sel $end
+$var wire 5 2 rs2 [4:0] $end
+$var wire 5 3 rs1 [4:0] $end
+$var wire 32 4 reg_input [31:0] $end
+$var wire 5 5 rdi [4:0] $end
+$var wire 32 6 pc_plus_imm_for_auipc [31:0] $end
+$var wire 32 7 output_data_forstore [31:0] $end
+$var wire 1 8 lui_enb $end
+$var wire 32 9 load_result [31:0] $end
+$var wire 1 : load_enb $end
+$var wire 1 ; jal_enb $end
+$var wire 3 < input_to_mux [2:0] $end
+$var wire 32 = imm_out [31:0] $end
+$var wire 32 > data_out2 [31:0] $end
+$var wire 32 ? data_out1 [31:0] $end
+$var wire 1 @ branch_taken $end
+$var wire 1 A branch_enb $end
+$var wire 1 B auipc_wenb $end
+$var wire 32 C alu_out [31:0] $end
+$var reg 1 D clk $end
+$var reg 1 E enable $end
+$var reg 32 F instruction [31:0] $end
+$var reg 1 G pc_write $end
+$var reg 1 H reset $end
+$scope module uut $end
+$var wire 32 I alu_result [31:0] $end
+$var wire 1 D clk $end
+$var wire 1 E enable $end
+$var wire 32 J imm_for_b_type [31:0] $end
+$var wire 1 # inp $end
+$var wire 32 K instruction [31:0] $end
+$var wire 1 $ lb $end
+$var wire 1 % lbu $end
+$var wire 1 & lh $end
+$var wire 1 ' lhu $end
+$var wire 1 ( lw $end
+$var wire 32 L pc_next [31:0] $end
+$var wire 32 M pc_plus_4 [31:0] $end
+$var wire 32 N pc_plus_imm [31:0] $end
+$var wire 1 G pc_write $end
+$var wire 1 H reset $end
+$var wire 1 + sb $end
+$var wire 1 O select $end
+$var wire 1 , sh $end
+$var wire 1 - sw $end
+$var wire 1 . wenb $end
+$var wire 3 P sel_bit_mux [2:0] $end
+$var wire 4 Q sel_bit [3:0] $end
+$var wire 1 1 rs2_imm_sel $end
+$var wire 5 R rs2 [4:0] $end
+$var wire 5 S rs1 [4:0] $end
+$var wire 32 T reg_input [31:0] $end
+$var wire 5 U rdi [4:0] $end
+$var wire 1 V priority_out $end
+$var wire 32 W pc_plus_imm_for_auipc [31:0] $end
+$var wire 32 X pc_out [31:0] $end
+$var wire 32 Y output_data_forstore [31:0] $end
+$var wire 1 Z mux_select $end
+$var wire 1 8 lui_enb $end
+$var wire 32 [ load_result [31:0] $end
+$var wire 1 : load_enb $end
+$var wire 1 ; jal_enb $end
+$var wire 3 \ input_to_mux [2:0] $end
+$var wire 32 ] imm_out [31:0] $end
+$var wire 32 ^ imm [31:0] $end
+$var wire 32 _ data_out3 [31:0] $end
+$var wire 32 ` data_out2 [31:0] $end
+$var wire 32 a data_out1 [31:0] $end
+$var wire 1 @ branch_taken $end
+$var wire 1 A branch_enb $end
+$var wire 1 B auipc_wenb $end
+$var wire 32 b alu_out [31:0] $end
+$scope module ALU $end
+$var wire 4 c selector [3:0] $end
+$var wire 32 d dataB [31:0] $end
+$var wire 32 e dataA [31:0] $end
+$var reg 1 @ branch_taken $end
+$var reg 32 f out [31:0] $end
+$upscope $end
+$scope module adder $end
+$var wire 32 g pc_plus_imm_for_auipc [31:0] $end
+$var wire 32 h pc_for_auipc [31:0] $end
+$var wire 32 i imm_for_btype [31:0] $end
+$upscope $end
+$scope module control_for_imm $end
+$var wire 1 1 select $end
+$var wire 32 j rs2 [31:0] $end
+$var wire 32 k imm [31:0] $end
+$var reg 32 l dataB [31:0] $end
+$upscope $end
+$scope module cu $end
+$var wire 1 m add $end
+$var wire 1 n addi $end
+$var wire 1 o addr $end
+$var wire 1 p andd $end
+$var wire 1 q andi $end
+$var wire 1 r andr $end
+$var wire 1 B auipc_wenb $end
+$var wire 1 s beq $end
+$var wire 1 t bge $end
+$var wire 1 u bgeu $end
+$var wire 1 v blt $end
+$var wire 1 w bltu $end
+$var wire 1 x bne $end
+$var wire 1 A branch_enb $end
+$var wire 32 y data_in [31:0] $end
+$var wire 1 z in_to_pr $end
+$var wire 1 { jal $end
+$var wire 1 ; jal_enb $end
+$var wire 1 | jalr $end
+$var wire 1 } lb $end
+$var wire 1 ~ lbu $end
+$var wire 1 !" lh $end
+$var wire 1 "" lhu $end
+$var wire 1 : load_enb $end
+$var wire 1 8 lui_enb $end
+$var wire 1 #" lw $end
+$var wire 1 $" ori $end
+$var wire 1 %" orr $end
+$var wire 1 &" orrr $end
+$var wire 1 '" out0 $end
+$var wire 1 (" out1 $end
+$var wire 1 )" out2 $end
+$var wire 1 *" out3 $end
+$var wire 1 1 rs2_imm_sel $end
+$var wire 1 +" sb $end
+$var wire 1 ," sh $end
+$var wire 1 -" sll $end
+$var wire 1 ." slli $end
+$var wire 1 /" sllr $end
+$var wire 1 0" slt $end
+$var wire 1 1" slti $end
+$var wire 1 2" sltr $end
+$var wire 1 3" sltu $end
+$var wire 1 4" sltui $end
+$var wire 1 5" sltur $end
+$var wire 1 6" sra $end
+$var wire 1 7" srai $end
+$var wire 1 8" srar $end
+$var wire 1 9" srl $end
+$var wire 1 :" srli $end
+$var wire 1 ;" srlr $end
+$var wire 1 <" sub $end
+$var wire 1 =" sw $end
+$var wire 1 . wenb $end
+$var wire 1 >" xori $end
+$var wire 1 ?" xorr $end
+$var wire 1 @" xorrr $end
+$var wire 1 A" i8 $end
+$var wire 1 B" i7 $end
+$var wire 1 C" i6 $end
+$var wire 1 D" i5 $end
+$var wire 1 E" i4 $end
+$var wire 1 F" i3 $end
+$var wire 1 G" i2 $end
+$var wire 1 H" i1 $end
+$var wire 1 I" i0 $end
+$var reg 4 J" sel_bit [3:0] $end
+$var reg 2 K" sel_bit_mux [1:0] $end
+$upscope $end
+$scope module decode $end
+$var wire 32 L" data_in [31:0] $end
+$var wire 5 M" rs2 [4:0] $end
+$var wire 5 N" rs1 [4:0] $end
+$var wire 5 O" rdi [4:0] $end
+$upscope $end
+$scope module dmem $end
+$var wire 32 P" address [31:0] $end
+$var wire 1 D clk $end
+$var wire 1 $ lb $end
+$var wire 1 % lbu $end
+$var wire 1 & lh $end
+$var wire 1 ' lhu $end
+$var wire 1 : load_enb $end
+$var wire 1 ( lw $end
+$var wire 1 + sb $end
+$var wire 1 , sh $end
+$var wire 1 - sw $end
+$var wire 32 Q" write_data [31:0] $end
+$var reg 32 R" read_data [31:0] $end
+$upscope $end
+$scope module encoder $end
+$var wire 1 Z mux_select $end
+$var wire 1 V enable $end
+$upscope $end
+$scope module encoderr $end
+$var wire 5 S" in [4:0] $end
+$var reg 3 T" out [2:0] $end
+$upscope $end
+$scope module imem $end
+$var wire 32 U" instruction [31:0] $end
+$var wire 32 V" addr [31:0] $end
+$upscope $end
+$scope module imm_gen $end
+$var wire 32 W" instruction [31:0] $end
+$var wire 7 X" opcode [6:0] $end
+$var reg 32 Y" imm [31:0] $end
+$var reg 1 V priority_out $end
+$upscope $end
+$scope module mux $end
+$var wire 32 Z" imm_input [31:0] $end
+$var wire 1 [" reg_input $end
+$var wire 1 Z select $end
+$var wire 32 \" out [31:0] $end
+$upscope $end
+$scope module mux2 $end
+$var wire 32 ]" rs2 [31:0] $end
+$var wire 4 ^" sel_bit [3:0] $end
+$var reg 32 _" output_data_forstore [31:0] $end
+$upscope $end
+$scope module mux3 $end
+$var wire 32 `" alu_result [31:0] $end
+$var wire 32 a" imm_for_b_type [31:0] $end
+$var wire 32 b" load_result [31:0] $end
+$var wire 32 c" pc_plus_4 [31:0] $end
+$var wire 32 d" pc_plus_imm [31:0] $end
+$var wire 3 e" sel [2:0] $end
+$var reg 32 f" out [31:0] $end
+$upscope $end
+$scope module pc $end
+$var wire 1 D clk $end
+$var wire 32 g" pc_next [31:0] $end
+$var wire 1 G pc_write $end
+$var wire 1 H rst $end
+$var reg 32 h" pc_out [31:0] $end
+$upscope $end
+$scope module reg_file $end
+$var wire 1 D clk $end
+$var wire 32 i" data_in [31:0] $end
+$var wire 1 j" enable $end
+$var wire 5 k" rd_select [4:0] $end
+$var wire 1 l" reset $end
+$var wire 5 m" rs1 [4:0] $end
+$var wire 5 n" rs2 [4:0] $end
+$var reg 32 o" data_out1 [31:0] $end
+$var reg 32 p" data_out2 [31:0] $end
+$var reg 1 q" i $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+xq"
+bx p"
+bx o"
+bx n"
+bx m"
+zl"
+bx k"
+zj"
+bx i"
+b0 h"
+bz g"
+bx f"
+b0 e"
+bx d"
+bz c"
+b0 b"
+bx a"
+bx `"
+bx _"
+bx ^"
+bx ]"
+bx \"
+x["
+bx Z"
+bx Y"
+bx X"
+bx W"
+b0 V"
+bx U"
+b0 T"
+b0z S"
+b0 R"
+bx Q"
+bx P"
+bx O"
+bx N"
+bx M"
+bx L"
+bx K"
+bx J"
+xI"
+xH"
+xG"
+xF"
+xE"
+xD"
+xC"
+xB"
+xA"
+x@"
+x?"
+x>"
+x="
+x<"
+x;"
+x:"
+x9"
+x8"
+x7"
+x6"
+x5"
+x4"
+x3"
+x2"
+x1"
+x0"
+x/"
+x."
+x-"
+x,"
+x+"
+x*"
+x)"
+x("
+x'"
+x&"
+x%"
+x$"
+x#"
+x""
+x!"
+x~
+x}
+x|
+x{
+xz
+bx y
+xx
+xw
+xv
+xu
+xt
+xs
+xr
+xq
+xp
+xo
+xn
+xm
+bx l
+bx k
+bx j
+bx i
+b0 h
+bx g
+bx f
+bx e
+bx d
+bx c
+bx b
+bx a
+bx `
+bx _
+bx ^
+bx ]
+b0 \
+b0 [
+xZ
+bx Y
+b0 X
+bx W
+xV
+bx U
+bx T
+bx S
+bx R
+bx Q
+b0xx P
+zO
+bz N
+bz M
+bz L
+bx K
+bz J
+bz I
+1H
+0G
+bx F
+0E
+0D
+bx C
+xB
+xA
+x@
+bx ?
+bx >
+bx =
+b0 <
+x;
+x:
+b0 9
+x8
+bx 7
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+x1
+bx 0
+b0xx /
+x.
+z-
+z,
+z+
+bz *
+bz )
+z(
+z'
+z&
+z%
+z$
+z#
+bz "
+bz !
+$end
+#5000
+1D
+#10000
+0D
+#15000
+1D
+#20000
+0D
+1G
+0H
+#25000
+bz X
+bz h
+bz V"
+bz h"
+1D
+#30000
+0D
+#35000
+1D
+#40000
+1D
+#45000
+0D
+#50000
+0D
+#55000
+1D
+#60000
+1D
+#65000
+0D
+#70000
+0D
+#75000
+1D
+#80000
+1D
+#85000
+0D
+#90000
+0D
+#95000
+1D
+#100000
+1D
+#105000
+0D
+#110000
+0D
+#115000
+1D
+#120000
+1D
+#125000
+0D
+#130000
+1D
+#135000
+0D
+#140000
+1D
+#145000
+0D
+#150000
+1D
+#155000
+0D
+#160000
+1D
+#165000
+0D
+#170000
+1D
