@@ -2,7 +2,7 @@ module pc_tb;
   reg clk;
   reg rst, enable;
   wire [4:0] rs1, rs2, rdi;
-  wire [31:0] pc, alu_out, out_1;
+  wire [31:0] pc, alu_out, out_1, pc_imm, pc_plus4;
   wire [31:0] instruction;
   wire [31:0] immm, dataA, dataB, outdata_store, read_data, outputt;
   wire [3:0] sel_bit;
@@ -148,20 +148,34 @@ module pc_tb;
     .read_data(read_data)
   );
   
+  adder_for_auipc adderr(
+    .pc_for_auipc(),
+    .imm_for_btype(immm),
+    .pc_plus_imm_for_auipc(pc_imm)
+  );
+  
   priority_encoder_8to3 pr_tomux(
-    .alu_result(alu_out),
+    .alu_result(1'b1),
     .load_enable(load_enb),
-    .jal_enable(jal_enb),
+    .jal_enb(jal_enb),
     .enable_for_auipc(auipc_wenb),
     .lui_enable(lui_enb),
-    .in(i),
-    .
-    .out(out_for)
+    .sel(out_for)
   );
   
   mux_8to1 mux8(
     .sel(out_for),
+    .alu_result(alu_out),
+    .load_result(read_data),
+    .pc_plus_4(pc_plus4),
+    .pc_plus_imm(pc_imm),
+    .imm_for_b_type(immm),
     .out(outputt)
+  );
+  
+  pc_plus_4 pc_4(
+    .pc(),
+    .pc_plus4(pc_plus4)
   );
   
   always #5 clk = ~clk;
