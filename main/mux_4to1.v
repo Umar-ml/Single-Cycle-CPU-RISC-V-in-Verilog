@@ -1,7 +1,7 @@
 module mux_4to1(
     input [1:0] sel,
     input [31:0] pc_plus_4,
-    input [31:0] pc_plus_imm,
+    input [31:0] pc_plus_imm, pc_plus_imm_2,
     input [31:0] rs1_plus_imm_for_jalr,
     output reg [31:0] out
 );
@@ -11,7 +11,7 @@ module mux_4to1(
             2'b00: out = pc_plus_4;
             2'b01: out = pc_plus_imm;
             2'b10: out = rs1_plus_imm_for_jalr;
-            2'b11: out = pc_plus_imm; 
+            2'b11: out = pc_plus_imm_2; 
             default: out = 32'b0; 
         endcase
     end

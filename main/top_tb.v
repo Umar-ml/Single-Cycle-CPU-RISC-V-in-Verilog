@@ -2,7 +2,7 @@ module pc_tb;
   reg clk;
   reg rst, enable;
   wire [4:0] rs1, rs2, rdi;
-  wire [31:0] pc, alu_out, out_1, pc_imm, pc_plus4;
+  wire [31:0] pc, alu_out, out_1, pc_imm, pc_plus4,rs1_plus_imm;
   wire [31:0] instruction;
   wire [31:0] immm, dataA, dataB, outdata_store, read_data, outputt;
   wire [3:0] sel_bit;
@@ -42,7 +42,7 @@ module pc_tb;
     .clk(clk),
     .reset(rst),
     .enable(enable),
-    .data_in(alu_out),
+    .data_in(outputt),
     .rs1(rs1),
     .rs2(rs2),
     .rd_select(rdi),
@@ -149,7 +149,7 @@ module pc_tb;
   );
   
   adder_for_auipc adderr(
-    .pc_for_auipc(),
+    .pc_for_auipc(pc),
     .imm_for_btype(immm),
     .pc_plus_imm_for_auipc(pc_imm)
   );
@@ -174,10 +174,26 @@ module pc_tb;
   );
   
   pc_plus_4 pc_4(
-    .pc(),
+    .pc(pc),
     .pc_plus4(pc_plus4)
   );
   
+  rs1_plus_imm rs_imm(
+    .rs1(dataA),
+    .imm_input(immm),
+    .rs1_plus_im(rs1_plus_imm)
+  );
+  
+    mux_4to1 mux4(
+    .sel(sel_bit_mux),
+    .pc_plus_4(pc_plus4),
+    .pc_plus_imm(pc_imm),
+    .rs1_plus_imm_for_jalr(rs1_plus_imm),
+    .pc_plus_imm_2(pc_imm),
+      .out(pc)
+  );
+  
+
   always #5 clk = ~clk;
   
   initial begin
