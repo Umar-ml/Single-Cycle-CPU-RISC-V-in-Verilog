@@ -248,10 +248,10 @@ module control_unit (
     assign sra = (srar) | (srai);
     assign orrr = (orr) | (ori);
     assign andd = (andr) | (andi);
-    assign out0 = (sll) | (sltu) | (srl) | (sra) | (andd);
-    assign out1 = (slt) | (sltu) | (orrr) | (andd);
-    assign out2 = (xorrr) | (srl) | (sra) | (orrr) | (andd);
-    assign out3 = (sub) | (sra);
+  assign out0 = (sll) | (sltu) | (srl) | (sra) | (andd) | (beq) | (bne) | (blt) | (bge) | (bltu) | (bgeu);
+  assign out1 = (slt) | (sltu) | (orrr) | (andd) | (blt)  | (bge) | (bltu) | (bgeu);
+  assign out2 = (xorrr) | (srl) | (sra) | (orrr) | (andd) | (beq)  | (bne) | (bltu) | (bgeu);
+  assign out3 = (sub) | (sra) | (bne)  | (bge) | (bgeu);
     always @(*)
     begin
     	sel_bit = {out0, out1, out2, out3};

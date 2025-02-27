@@ -19,6 +19,7 @@ module pc_tb;
   wire wenb, rs2_imm_sel;
   wire lui_enb, auipc_wenb, load_enb, jal_enb, branch_enb, in_to_pr;
   wire priority_out;
+  wire branch_taken;
 
   fetch uut(
     .clk(clk),
@@ -54,7 +55,8 @@ module pc_tb;
     .dataA(dataA),
     .dataB(out_1),
     .selector(sel_bit),
-    .out(alu_out)
+    .out(alu_out),
+    .branch_taken(branch_taken)
   );
   
   mux_2to1 mx2(
@@ -150,7 +152,7 @@ module pc_tb;
   
   adder_for_auipc adderr(
     .pc_for_auipc(pc),
-    .imm_for_btype(immm),
+    .imm_for_btype(out_1),
     .pc_plus_imm_for_auipc(pc_imm)
   );
   
