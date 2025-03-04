@@ -31,11 +31,15 @@ endmodule
 
 module fetch (
     input wire clk,
-    input wire rst
+    input wire rst,
+    input wire branch_taken,       // Signal: 1 if branch should be taken
+    input wire [31:0] branch_target, // Target address for branch
+    output wire [31:0] instruction
 );
-    wire [31:0] pc, instruction, pc_next;
+    wire [31:0] pc, pc_next;
 
-    assign pc_next = pc + 4;
+    // MUX: Choose PC+4 or branch target based on `branch_taken`
+    assign pc_next = branch_taken ? branch_target : (pc + 4);
 
     program_counter PC (
         .clk(clk),
@@ -230,12 +234,12 @@ module control_unit (
     assign lui_enb = (i0)&(~i1)&(i2)&(i3)&(~i4);
     assign auipc_wenb = (i0)&(~i1)&(i2)&(~i3)&(~i4);
     //Branch instructions
-    assign beq = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(~i6)&(~i7)&(~i8);
-    assign bne = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(~i6)&(~i7)&(~i8);
-    assign blt = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(~i6)&(i7)&(~i8);
-    assign bge = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(~i6)&(i7)&(~i8);
-    assign bltu = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(i6)&(i7)&(~i8);
-    assign bgeu = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(i6)&(i7)&(~i8);
+    assign beq = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(~i6)&(~i7);
+    assign bne = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(~i6)&(~i7);
+    assign blt = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(~i6)&(i7);
+    assign bge = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(~i6)&(i7);
+    assign bltu = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(i6)&(i7);
+    assign bgeu = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(i5)&(i6)&(i7);
     // Enable for branch
   assign branch_enb = (beq) | (bne) | (blt) | (bge) | (bltu) | (bgeu);
     //Selection bit for alu
