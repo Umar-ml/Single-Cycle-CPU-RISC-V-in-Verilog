@@ -23,7 +23,9 @@ module pc_tb;
 
   fetch uut(
     .clk(clk),
-    .rst(rst)
+    .rst(rst),
+    .branch_taken(branch_taken),
+    .branch_target(pc)
   );
   
   decoder decc(
@@ -151,8 +153,8 @@ module pc_tb;
   );
   
   adder_for_auipc adderr(
-    .pc_for_auipc(pc),
-    .imm_for_btype(out_1),
+    .pc_for_auipc(uut.PC.pc_out),
+    .imm_for_btype(immm),
     .pc_plus_imm_for_auipc(pc_imm)
   );
   
@@ -160,7 +162,7 @@ module pc_tb;
     .alu_result(1'b1),
     .load_enable(load_enb),
     .jal_enb(jal_enb),
-    .enable_for_auipc(auipc_wenb),
+    .enable_for_auipc(branch_taken),
     .lui_enable(lui_enb),
     .sel(out_for)
   );
@@ -169,14 +171,14 @@ module pc_tb;
     .sel(out_for),
     .alu_result(alu_out),
     .load_result(read_data),
-    .pc_plus_4(pc_plus4),
+    .pc_plus_4(uut.PC.pc_out),
     .pc_plus_imm(pc_imm),
     .imm_for_b_type(immm),
     .out(outputt)
   );
   
   pc_plus_4 pc_4(
-    .pc(pc),
+    .pc(uut.PC.pc_out),
     .pc_plus4(pc_plus4)
   );
   
