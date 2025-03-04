@@ -268,7 +268,7 @@ module control_unit (
   assign in_to_pr = ~(jal | jalr | branch_enb);
     always @(*) 
     begin
-      casez({jal, jalr, branch_enb, in_to_pr})
+      casez({branch_enb, jalr, jal, in_to_pr})
     		4'b1??? : sel_bit_mux = 2'b11;
     		4'b01?? : sel_bit_mux = 2'b10;
     		4'b001? : sel_bit_mux = 2'b01;

@@ -24,7 +24,7 @@ module pc_tb;
   fetch uut(
     .clk(clk),
     .rst(rst),
-    .branch_taken(branch_taken),
+    .branch_taken(branch_taken), // jal for jtype inst put jal inside parenthesis
     .branch_target(pc)
   );
   
