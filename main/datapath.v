@@ -29,7 +29,7 @@ module instruction_memory (
 
 endmodule
 
-
+// Your 4-to-1 MUX (unchanged)
 module mux_4to1(
     input [1:0] sel,
     input [31:0] pc_plus_4,
@@ -203,7 +203,7 @@ module control_unit (
     input [31:0] data_in,
     output reg [3:0] sel_bit,
     output reg [1:0] sel_bit_mux,
-    output addr, sub, sllr, sltr, sltur, xorr, srlr, srar, orr, andr,
+    output addr, sub, sllr, sltr, sltur, xorr, srlr, srar, orr, andr, addwith,
     output addi, slli, slti, sltui, xori, srli, srai, ori, andi,
     output sw, sh, sb, lb, lh, lw, lbu, lhu,
     output jal, jalr,
@@ -263,6 +263,7 @@ module control_unit (
     assign jal_enb = (jal) | (jalr);
     //auipc enable lui enable
     assign lui_enb = (i0)&(~i1)&(i2)&(i3)&(~i4);
+  	assign addwith = (~i0)&(~i1)&(i2)&(i3)&(~i4)&(~i5)&(~i6)&(~i7)&(i8);
     assign auipc_wenb = (i0)&(~i1)&(i2)&(~i3)&(~i4);
     //Branch instructions
     assign beq = (~i0)&(~i1)&(~i2)&(i3)&(i4)&(~i5)&(~i6)&(~i7);
@@ -294,7 +295,7 @@ module control_unit (
 
     // write enable and rs2 immediate selection
     assign wenb = (lw) | (jal) | (lh) | (lb) | (addr) | (sub) | (srar) | (sllr) | (orr) | (andr) | (sltur) | (sltr) | (srai) | (xorr) | (srlr) | (andi) | (auipc_wenb) | (ori) | (xori) | (sltui) | (srli) | (slli) | (addi) | (slti) | (sb) | (sh) | (sw) | (lbu) | (lhu) | (jalr) | (lui_enb);
-    assign rs2_imm_sel = (lui_enb) | (jal) | (lb) | (lh) |(addi) | (sh) | (sb) | (sw) | (slli) | (srai) | (auipc_wenb) | (ori) | (andi) | (srli) | (xori) | (sltui) | (slti) | (lbu) | (lhu) | (jalr) | (lw);
+    assign rs2_imm_sel = (lui_enb) | (jal) | (lb) | (lh) |(addi) | (sh) | (sb) | (sw) | (slli) | (srai) | (auipc_wenb) | (ori) | (andi) | (srli) | (xori) | (sltui) | (slti) | (lbu) | (lhu) | (jalr) | (lw) | (lui_enb) | (addwith);
     // Select bit for mux
   assign in_to_pr = ~(jal | jalr | branch_enb);
     always @(*) 

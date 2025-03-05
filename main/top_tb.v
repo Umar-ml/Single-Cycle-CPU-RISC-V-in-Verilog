@@ -18,7 +18,7 @@ module pc_tb;
   wire out0, out1, out2, out3;
   wire wenb, rs2_imm_sel;
   wire lui_enb, auipc_wenb, load_enb, jal_enb, branch_enb, in_to_pr;
-  wire priority_out;
+  wire priority_out, addwith;
   wire branch_taken;
 
   fetch uut(
@@ -130,6 +130,7 @@ module pc_tb;
     .auipc_wenb(auipc_wenb),
     .sel_bit_mux(sel_bit_mux),
     .lui_enb(lui_enb),
+    .addwith(addwith),
     .in_to_pr(in_to_pr)
   );
   
