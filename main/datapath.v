@@ -3,7 +3,7 @@
 module program_counter (
     input wire clk,             
     input wire rst,             
-    input wire [31:0] pc_next,  
+    input wire [31:0] pc_next,  // MUX output as next PC value
     input wire pc_write,        
     output reg [31:0] pc_out    
 );
@@ -29,18 +29,48 @@ module instruction_memory (
 
 endmodule
 
+
+module mux_4to1(
+    input [1:0] sel,
+    input [31:0] pc_plus_4,
+    input [31:0] pc_plus_imm, pc_plus_imm_2,
+    input [31:0] rs1_plus_imm_for_jalr,
+    output reg [31:0] out
+);
+    always @(*) begin
+        case (sel)
+            2'b00: out = pc_plus_4;             
+            2'b01: out = pc_plus_imm;           
+            2'b10: out = rs1_plus_imm_for_jalr; 
+            2'b11: out = pc_plus_imm_2;         
+            default: out = 32'b0;               
+        endcase
+    end
+endmodule
+
 module fetch (
     input wire clk,
     input wire rst,
-    input wire branch_taken,       // Signal: 1 if branch should be taken
-    input wire [31:0] branch_target, // Target address for branch
+    input wire [1:0] sel_bit_mux,     // Selector for PC source
+    input wire [31:0] pc_plus_4,      // External PC+4 value
+    input wire [31:0] pc_plus_imm,    // External PC+IMM value
+    input wire [31:0] rs1_plus_imm,   // External RS1+IMM value (JALR)
+    input wire [31:0] pc_plus_imm_2,  // External PC+IMM alternative
     output wire [31:0] instruction
 );
     wire [31:0] pc, pc_next;
 
-    // MUX: Choose PC+4 or branch target based on `branch_taken`
-    assign pc_next = branch_taken ? branch_target : (pc + 4);
+    // Instantiate the 4-to-1 MUX
+    mux_4to1 mux4 (
+        .sel(sel_bit_mux),
+        .pc_plus_4(pc_plus_4),
+        .pc_plus_imm(pc_plus_imm),
+        .pc_plus_imm_2(pc_plus_imm_2),
+        .rs1_plus_imm_for_jalr(rs1_plus_imm),
+        .out(pc_next)
+    );
 
+    // Program Counter
     program_counter PC (
         .clk(clk),
         .rst(rst),
@@ -49,6 +79,7 @@ module fetch (
         .pc_out(pc)
     );
 
+    // Instruction Memory
     instruction_memory IM (
         .addr(pc),
         .instruction(instruction)
@@ -464,24 +495,6 @@ module rs1_plus_imm(
 endmodule
 
 
-module mux_4to1(
-    input [1:0] sel,
-    input [31:0] pc_plus_4,
-    input [31:0] pc_plus_imm, pc_plus_imm_2,
-    input [31:0] rs1_plus_imm_for_jalr,
-    output reg [31:0] out
-);
 
-    always @(*) begin
-        case (sel)
-            2'b00: out = pc_plus_4;
-            2'b01: out = pc_plus_imm;
-            2'b10: out = rs1_plus_imm_for_jalr;
-            2'b11: out = pc_plus_imm_2; 
-            default: out = 32'b0; 
-        endcase
-    end
-
-endmodule
 
 

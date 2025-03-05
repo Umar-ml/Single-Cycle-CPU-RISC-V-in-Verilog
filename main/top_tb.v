@@ -24,8 +24,11 @@ module pc_tb;
   fetch uut(
     .clk(clk),
     .rst(rst),
-    .branch_taken(branch_taken), // jal for jtype inst put jal inside parenthesis
-    .branch_target(pc)
+    .sel_bit_mux(sel_bit_mux),
+    .pc_plus_4(pc_plus4),
+    .pc_plus_imm(pc_imm),
+    .rs1_plus_imm(rs1_plus_imm),
+    .pc_plus_imm_2(pc_imm)
   );
   
   decoder decc(
@@ -188,14 +191,7 @@ module pc_tb;
     .rs1_plus_im(rs1_plus_imm)
   );
   
-    mux_4to1 mux4(
-    .sel(sel_bit_mux),
-    .pc_plus_4(pc_plus4),
-    .pc_plus_imm(pc_imm),
-    .rs1_plus_imm_for_jalr(rs1_plus_imm),
-    .pc_plus_imm_2(pc_imm),
-      .out(pc)
-  );
+ 
   
 
   always #5 clk = ~clk;
